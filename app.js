@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 const usuariosRouter = require('./routes/usuarios');
 const publicacionesRouter = require('./routes/publicaciones');
+const comentariosRouter = require('./routes/comentarios');
 const amistadesRouter = require('./routes/amistades');
 
 // Middleware
@@ -17,6 +18,7 @@ app.set('view engine', 'ejs');
 app.use('/usuarios', usuariosRouter);
 app.use('/publicaciones', publicacionesRouter);
 app.use('/amistades', amistadesRouter);
+app.use('/comentarios', comentariosRouter);
 
 // Middleware para manejar errores
 app.use((err, req, res, next) => {
@@ -25,7 +27,7 @@ app.use((err, req, res, next) => {
 });
 
 // Iniciar el servidor
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

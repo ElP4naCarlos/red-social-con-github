@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+</head>
+<body>
+    <h1>Lista de Usuarios</h1>
+    <ul>
+        <% usuarios.forEach(usuario => { %>
+            <li>
+                ID: <%= usuario.id %>, Nombre: <%= usuario.nombre %>, Email: <%= usuario.email %>
+            </li>
+        <% }) %>
+    </ul>
+    <a href="/">Volver al inicio</a>
+</body>
+</html>

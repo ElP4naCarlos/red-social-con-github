@@ -1,27 +1,25 @@
 const mongoose = require('mongoose');
 
-// Esquema del modelo de Publicación
+// Esquema de la publicación
 const publicacionSchema = new mongoose.Schema({
-  usuarioId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario',  // Relaciona esta publicación con un usuario
-    required: true
-  },
   contenido: {
     type: String,
-    required: true,
+    required: [true, 'El contenido es obligatorio'], // El campo es obligatorio
     trim: true
   },
-  fecha: {
-    type: Date,
-    default: Date.now
+  multimedia: {
+    type: String,
+    required: false // Este campo es opcional
   },
-  // Agrega otros campos como imágenes, etiquetas, etc.
+  usuarioId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Usuario',
+    required: [true, 'El usuarioId es obligatorio'] // Este campo es obligatorio
+  }
 }, {
-  timestamps: true // Esto agrega createdAt y updatedAt automáticamente
+  timestamps: true
 });
 
-// Crear el modelo de Publicación basado en el esquema
 const Publicacion = mongoose.model('Publicacion', publicacionSchema);
 
 module.exports = Publicacion;

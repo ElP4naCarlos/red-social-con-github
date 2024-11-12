@@ -1,0 +1,59 @@
+[33mcommit c87c9314a56eced182b6c55a8a77e2c98912fdc4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Carlos Rodríguez <carlosrodriguez3152@gmail.com>
+Date:   Mon Nov 11 20:21:21 2024 -0400
+
+    Se corrigieron errores al momento de conectarse a MongoDB.
+
+[33mcommit f79e9e2df561eb9d9286ccd1af9be723900219e5[m
+Author: Carlos Rodríguez <carlosrodriguez3152@gmail.com>
+Date:   Mon Nov 11 19:50:01 2024 -0400
+
+    Eliminadas opciones deprecated de la configuración de mongoose.
+
+[33mcommit d1edde4bcdac7d4fd4ab6d2fc584d54e802fe68a[m
+Author: Carlos Rodríguez <carlosrodriguez3152@gmail.com>
+Date:   Mon Nov 11 19:18:22 2024 -0400
+
+    Agregada conexión a MongoDB en app.js y configuraciones necesarias
+
+[33mcommit e231ca0a91acda1c4d462941b74f434bb9808881[m
+Author: Carlos Rodríguez <carlosrodriguez3152@gmail.com>
+Date:   Mon Nov 11 19:12:57 2024 -0400
+
+    Conexión a MongoDB y creación de base de datos
+
+[33mcommit 18bdb98f4ae52c23bdfdd3fc6f99a17e23178fca[m
+Author: Carlos Rodríguez <carlosrodriguez3152@gmail.com>
+Date:   Sun Oct 6 15:23:06 2024 -0400
+
+    Añadida la funcionalidad para ver usuarios, publicaciones y comentarios desde la web.
+
+[33mcommit 2b207eb7f4a80fc31ab7ba473992e9ffbe5e43c6[m
+Author: Nelson Peña <nelpena23@gmail.com>
+Date:   Sun Oct 6 14:58:05 2024 -0400
+
+    Agregada la funcionalidad para gestionar amistades
+
+[33mcommit e4054ddd41820ef972a8a4d26c56d5fe754ed195[m
+Author: Nelson Peña <nelpena23@gmail.com>
+Date:   Sun Oct 6 14:50:51 2024 -0400
+
+    Implementadas rutas y controlador para comentarios
+
+[33mcommit 1d939d35ebe79158bf61780e16e72ef3e8e2b562[m
+Author: Nelson Peña <nelpena23@gmail.com>
+Date:   Sun Oct 6 14:28:35 2024 -0400
+
+    Añadido controlador y rutas para gestionar publicaciones
+
+[33mcommit 77fb112b15f94cf20d1d140ae6823dad6e521454[m
+Author: Carlos Rodríguez <carlosrodriguez3152@gmail.com>
+Date:   Sun Oct 6 14:12:23 2024 -0400
+
+    Implementar y probar la ruta GET/POST/PUT/DELETE para usuarios
+
+[33mcommit 02043e60a6569d85523513ee9051dec415896422[m
+Author: Carlos Rodríguez <carlosrodriguez3152@gmail.com>
+Date:   Sun Oct 6 13:56:10 2024 -0400
+
+    Inicialización del proyecto con express-generator :)

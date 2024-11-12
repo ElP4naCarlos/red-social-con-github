@@ -6,6 +6,8 @@ const usuariosRouter = require('./routes/usuarios');
 const publicacionesRouter = require('./routes/publicaciones');
 const comentariosRouter = require('./routes/comentarios');
 const amistadesRouter = require('./routes/amistades');
+const UsuariosController = require('./controllers/usuariosController'); // Importa el controlador de usuarios
+const PublicacionesController = require('./controllers/publicacionesController'); // Importa el controlador de publicaciones
 
 // URL de conexión a MongoDB (modifícala si usas MongoDB Atlas)
 const MONGODB_URI = 'mongodb+srv://carlosrodriguez3152:C0J59pq7UdvSuuQg@redsocial.kryzs.mongodb.net/?retryWrites=true&w=majority&appName=RedSocial'; 
@@ -34,12 +36,22 @@ app.get('/', (req, res) => {
   res.render('index'); // Renderiza la vista index.ejs
 });
 
-app.get('/usuarios', (req, res) => {
-  res.render('usuarios', { usuarios: UsuariosController.usuarios }); // Muestra la lista de usuarios
+app.get('/usuarios', async (req, res) => {
+  try {
+    const usuarios = await UsuariosController.listarUsuarios(req, res); // Obtener usuarios desde el controlador
+    res.render('usuarios', { usuarios }); // Muestra la lista de usuarios
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al listar usuarios", error });
+  }
 });
 
-app.get('/publicaciones', (req, res) => {
-  res.render('publicaciones', { publicaciones: PublicacionesController.publicaciones }); // Muestra la lista de publicaciones
+app.get('/publicaciones', async (req, res) => {
+  try {
+    const publicaciones = await PublicacionesController.listarPublicaciones(req, res); // Obtener publicaciones desde el controlador
+    res.render('publicaciones', { publicaciones }); // Muestra la lista de publicaciones
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al listar publicaciones", error });
+  }
 });
 
 // Middleware para manejar errores

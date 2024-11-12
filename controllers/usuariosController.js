@@ -1,73 +1,77 @@
-class UsuariosController {
-  // Variable temporal para almacenar usuarios
-  static usuarios = [];
+const Usuario = require('../models/usuario'); // Importar el modelo de Usuario
 
+class UsuariosController {
   // Listar todos los usuarios
-  static listarUsuarios(req, res) {
-    res.status(200).json(UsuariosController.usuarios); // Responde con la lista completa de usuarios en formato JSON
+  static async listarUsuarios(req, res) {
+    try {
+      const usuarios = await Usuario.find(); // Buscar todos los usuarios en la base de datos
+      res.status(200).json(usuarios); // Responde con la lista de usuarios
+    } catch (error) {
+      res.status(500).json({ mensaje: "Error al listar usuarios", error });
+    }
   }
 
   // Crear un nuevo usuario
-  static crearUsuario(req, res) {
-    const { nombre, email } = req.body;
-    
-    // Crear un nuevo usuario con ID autogenerado
-    const nuevoUsuario = {
-      id: UsuariosController.usuarios.length + 1,
-      nombre: nombre,
-      email: email
-    };
+  static async crearUsuario(req, res) {
+    const { nombre, correo, fechaNacimiento } = req.body;
 
-    // Agregar el usuario a la lista de usuarios
-    UsuariosController.usuarios.push(nuevoUsuario);
-
-    // Responder con el usuario creado
-    res.status(201).json(nuevoUsuario); // Devolvemos el nuevo usuario creado en la respuesta
+    try {
+      const nuevoUsuario = new Usuario({ nombre, correo, fechaNacimiento });
+      await nuevoUsuario.save(); // Guardar el nuevo usuario en la base de datos
+      res.status(201).json(nuevoUsuario); // Devolver el usuario creado
+    } catch (error) {
+      res.status(400).json({ mensaje: "Error al crear usuario", error });
+    }
   }
 
   // Obtener un usuario por su ID
-  static obtenerUsuarioPorId(req, res) {
+  static async obtenerUsuarioPorId(req, res) {
     const { id } = req.params;
 
-    // Buscar el usuario por su ID
-    const usuario = UsuariosController.usuarios.find(u => u.id == id);
-
-    // Si no se encuentra el usuario, devolver un error 404
-    if (!usuario) {
-      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    try {
+      const usuario = await Usuario.findById(id); // Buscar el usuario por su ID
+      if (!usuario) {
+        return res.status(404).json({ mensaje: "Usuario no encontrado" });
+      }
+      res.status(200).json(usuario); // Devolver el usuario encontrado
+    } catch (error) {
+      res.status(500).json({ mensaje: "Error al obtener usuario", error });
     }
-
-    // Devolver el usuario encontrado
-    res.status(200).json(usuario);
   }
 
   // Editar un usuario
-  static editarUsuario(req, res) {
+  static async editarUsuario(req, res) {
     const { id } = req.params;
-    const { nombre, email } = req.body;
+    const { nombre, correo, fechaNacimiento } = req.body;
 
-    // Buscar el usuario por ID
-    const usuario = UsuariosController.usuarios.find(u => u.id == id);
-
-    if (!usuario) {
-      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    try {
+      const usuario = await Usuario.findByIdAndUpdate(
+        id,
+        { nombre, correo, fechaNacimiento },
+        { new: true } // Esto asegura que nos devuelvan el documento actualizado
+      );
+      if (!usuario) {
+        return res.status(404).json({ mensaje: "Usuario no encontrado" });
+      }
+      res.status(200).json(usuario); // Devolver el usuario actualizado
+    } catch (error) {
+      res.status(500).json({ mensaje: "Error al editar usuario", error });
     }
-
-    // Actualizar los datos del usuario
-    usuario.nombre = nombre || usuario.nombre;
-    usuario.email = email || usuario.email;
-
-    res.status(200).json(usuario); // Devolvemos el usuario actualizado
   }
 
   // Eliminar un usuario
-  static eliminarUsuario(req, res) {
+  static async eliminarUsuario(req, res) {
     const { id } = req.params;
 
-    // Filtrar el array para eliminar el usuario con el ID especificado
-    UsuariosController.usuarios = UsuariosController.usuarios.filter(u => u.id != id);
-
-    res.status(200).json({ mensaje: `Usuario con ID ${id} eliminado` });
+    try {
+      const usuario = await Usuario.findByIdAndDelete(id); // Eliminar el usuario por su ID
+      if (!usuario) {
+        return res.status(404).json({ mensaje: "Usuario no encontrado" });
+      }
+      res.status(200).json({ mensaje: `Usuario con ID ${id} eliminado` });
+    } catch (error) {
+      res.status(500).json({ mensaje: "Error al eliminar usuario", error });
+    }
   }
 }
 

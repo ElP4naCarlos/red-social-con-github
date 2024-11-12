@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Esquema del modelo de Usuario
 const usuarioSchema = new mongoose.Schema({
   nombre: {
     type: String,
@@ -12,8 +11,8 @@ const usuarioSchema = new mongoose.Schema({
     required: true,
     unique: true,
     trim: true,
-    lowercase: true, // Asegura que el correo se guarde en minúsculas
-    match: [/\S+@\S+\.\S+/, 'Por favor, ingresa un correo válido'] // Valida el formato del correo
+    lowercase: true, 
+    match: [/\S+@\S+\.\S+/, 'Por favor, ingresa un correo válido']
   },
   fechaNacimiento: {
     type: Date,
@@ -21,16 +20,28 @@ const usuarioSchema = new mongoose.Schema({
   },
   edad: {
     type: Number,
-    required: true,
-    min: 18, // Edad mínima para el usuario
-    max: 120 // Edad máxima para el usuario
+    min: 18, 
+    max: 120 
   },
-  // Agrega otros campos que consideres necesarios para un usuario
 }, {
-  timestamps: true // Esto agrega createdAt y updatedAt automáticamente
+  timestamps: true
 });
 
-// Crear el modelo de Usuario basado en el esquema
+// Función para calcular la edad
+usuarioSchema.pre('save', function (next) {
+  if (this.fechaNacimiento) {
+    const today = new Date();
+    const birthDate = new Date(this.fechaNacimiento);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const month = today.getMonth();
+    if (month < birthDate.getMonth() || (month === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    this.edad = age;  // Calculamos y asignamos la edad antes de guardar el usuario
+  }
+  next();
+});
+
 const Usuario = mongoose.model('Usuario', usuarioSchema);
 
 module.exports = Usuario;

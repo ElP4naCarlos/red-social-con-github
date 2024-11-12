@@ -10,7 +10,7 @@ const UsuariosController = require('./controllers/usuariosController'); // Impor
 const PublicacionesController = require('./controllers/publicacionesController'); // Importa el controlador de publicaciones
 
 // URL de conexión a MongoDB (modifícala si usas MongoDB Atlas)
-const MONGODB_URI = 'mongodb+srv://carlosrodriguez3152:C0J59pq7UdvSuuQg@redsocial.kryzs.mongodb.net/?retryWrites=true&w=majority&appName=RedSocial'; 
+const MONGODB_URI = 'mongodb+srv://carlosrodriguez3152:C0J59pq7UdvSuuQg@redsocial.kryzs.mongodb.net/redsocial?retryWrites=true&w=majority&appName=RedSocial'; 
 
 // Conexión a MongoDB
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })

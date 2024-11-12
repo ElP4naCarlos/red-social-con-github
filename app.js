@@ -8,7 +8,7 @@ const comentariosRouter = require('./routes/comentarios');
 const amistadesRouter = require('./routes/amistades');
 
 // URL de conexión a MongoDB (modifícala si usas MongoDB Atlas)
-const MONGODB_URI = 'mongodb://localhost:27017/redSocial'; // Cambia 'redSocial' al nombre de tu base de datos
+const MONGODB_URI = 'mongodb+srv://carlosrodriguez3152:C0J59pq7UdvSuuQg@redsocial.kryzs.mongodb.net/?retryWrites=true&w=majority&appName=RedSocial'; 
 
 // Conexión a MongoDB
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
